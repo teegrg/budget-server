@@ -1,5 +1,4 @@
 const express = require("express");
-const { v4: uuidv4 } = require("uuid")
 const transaction = express.Router();
 const transactionArray = require("../models/transaction.js");
 
@@ -25,10 +24,10 @@ transaction.get("/", (req,res) => {
 // });
 
 //SHOW
-transaction.get("/:id", (req,res) => {
+transaction.get("/:arrayIndex", (req,res) => {
     //console.log(req.params.id);
-   if (transactionArray[req.params.id]){
-       res.json(transactionArray[req.params.id]) 
+   if (transactionArray[req.params.arrayIndex]){
+       res.json(transactionArray[req.params.arrayIndex]) 
    }else {
        res.status(404).json({error: "ID NOT FOUND" })
    }
@@ -49,9 +48,9 @@ transaction.post("/", (req,res) => {
 //   });
 
 //DELETE
-transaction.delete("/:id", (req,res) => {
-    if (transactionArray[req.params.id]) {
-        const deleteTransaction = transactionArray.splice(req.params.id, 1)
+transaction.delete("/:arrayIndex", (req,res) => {
+    if (transactionArray[req.params.arrayIndex]) {
+        const deleteTransaction = transactionArray.splice(req.params.arrayIndex, 1)
         res.status(200).json(deleteTransaction);
     }else {
         res.status(404).json({error: "ID NOT FOUND"});
@@ -59,10 +58,10 @@ transaction.delete("/:id", (req,res) => {
 });
 
 //UPDATE/EDIT
-transaction.put("/:id/edit", (req,res) => {
-    if (transactionArray[req.params.id]) {
-        transactionArray[req.params.id] = req.body
-        res.status(200).json(transactionArray[req.params.id])
+transaction.put("/:arrayIndex", (req,res) => {
+    if (transactionArray[req.params.arrayIndex]) {
+        transactionArray[req.params.arrayIndex] = req.body
+        res.status(200).json(transactionArray[req.params.arrayIndex])
     }else {
         res.status(404).json({error: "ID NOT FOUND"})
     }
